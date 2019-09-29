@@ -1,0 +1,115 @@
+{% load staticfiles %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <meta http-equiv="X-UA-Compatible" content="IE-edge">
+          <title>Login</title>
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+          <link rel="stylesheet" href="{% static 'css/style.css' %}">
+          <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+          <link rel="stylesheet" href="{% static 'css/style3.css' %}">
+          <script src="{% static 'script/swiper.min.js' %}"></script>
+          <style>
+            body{background: url("{% static "images/login.jpg"%}");bacbackground-size:cover;width: 100%;height: 100%;position: relative}
+            .story{width:80%;height: 80%;color: white;position: absolute;right:14px ;bottom: 14px;border-radius: 10px}
+            .container-fluid{width: 100%;position: relative;background: blueviolet;margin-top: 0px;height: 50px}
+            .container2{height:100%;width:15%; text-align:center;position: relative;float:left;background: olivedrab;top:0;border: 1px solid olivedrab;border-radius-right: 20px;}
+            .row{width: 100%;margin-top:}
+            a{color:black;font-weight: 600;font-family: sans-serif;text-transform: uppercase;}
+            a:hover{color:white;text-decoration: none;}
+            .col{text-align: center;margin: 0px;padding-top:14px;}
+          </style>
+
+</head>
+<body>
+  <div class="story"  style="overflow-x: scroll;background: blueviolet">
+      <div class="pad">
+          <div class="swiper-container">
+              <div class="swiper-wrapper">
+                 {% for i in sdata %}
+                    <div class="swiper-slide" >
+                    <div class="imgBx"><center><p>:)---------------------------------------(:</p></center>
+                    <p style="text-align: center;color: #ffffff">{{ i.story }}</p></div>
+                    <div class="details">
+                        <center><p style="padding: 12px auto;">Submission Date:-{{ i.date }}<br>Author:-
+                    {% for i in img %}{{ i.name }}{% endfor %}</p>
+                        </center></div>
+                    </div>
+                 {% endfor %}
+              </div>
+        <!-- Add Pagination -->
+              <div class="swiper-pagination"></div>
+          </div>
+     <!-- Initialize Swiper -->
+     <script>
+       var swiper = new Swiper('.swiper-container', {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        coverflowEffect: {
+        rotate: 60,
+        stretch: 0,
+        depth: 200,
+        modifier: 5,
+        slideShadows : true,},
+        pagination: {
+        el: '.swiper-pagination',},});
+     </script>
+     </div>
+</div>
+<div class="container-fluid">
+      <div class="row">
+          <div><a href="/logout/" data-toggle="tooltip" title="Log Out!" style="color: black; position: absolute;z-index:5;margin-top: 200px;"><i class="fas fa-power-off fa-3x" style="color: red" ></i></a>
+               <script>
+               $(document).ready(function(){
+               $('[data-toggle="tooltip"]').tooltip();});
+               </script>
+          </div>
+          <div class="col"><button class="btn btn-success" data-toggle="modal" data-target="#myModal3" >StoryPad</button></div>
+<!StoryPad Modal----->
+  <div class="modal fade" id="myModal3">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content"style="width: 100%;position: relative">
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h4 class="modal-title">StoryPad</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+          <div class="modal-body jumbotron" style="width:100%;height: 100%;position: relative">
+            <form method="POST" action="/story/" enctype="multipart/form-data">
+                         {% csrf_token %}
+                <label>Write your story here:</label>
+                <textarea name="story" style="width: 100%;z-index:5;height: 100%;min-height:200px;color:white;position:relative;background: gray;" required></textarea>
+                <center><button type="submit" class="btn btn-primary">Submit</button></center>
+            </form>
+          </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        <div class="col"><a href="/family/">GALLERY</a></div>
+        <div class="col"><a href="/member/">MEMBERS</a></div>
+  </div>
+</div>
+<div class="container2">
+        {% for i in img %}
+                <img src="/media/{{ i.image }} " style="border-radius: 46px; width: 92px;height: 92px;">
+        {% endfor %}
+</div>
+
+    <div class="develop" style="position: fixed; background: #000000;bottom: 0;width:100%;z-index: 2"><p style="color: white;text-align: center"> ©Developed by Brijesh Kumar,email:-brijesh.jnvv93@gmail.com</p></div>
+
+</div>
+</body>
+</html>
+<!>
